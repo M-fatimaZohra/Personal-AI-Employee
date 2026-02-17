@@ -4,17 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "5e2b5c12c9a3dbfd",
+        "id": "61a8948c83db0d43",
         "type": "tabs",
         "children": [
           {
-            "id": "511a3f48c34a742b",
+            "id": "aa1d2bbb57609f76",
             "type": "leaf",
             "state": {
-              "type": "graph",
+              "type": "empty",
               "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
         ]
@@ -176,26 +176,25 @@
       "bases:Create new base": false
     }
   },
-  "active": "511a3f48c34a742b",
+  "active": "aa1d2bbb57609f76",
   "lastOpenFiles": [
-    "__pycache__/run_watchers.cpython-313.pyc",
     "AI_Employee_Vault/Done/FILE_Iftar_Party_Food_List.md",
+    "uv.lock",
+    "tests/test_filesystem_watcher.py",
+    "tests/__init__.py",
+    "run_watchers.py",
+    "pyproject.toml",
+    "logger.py",
+    "filesystem_watcher.py",
+    "dashboard_updater.py",
+    "base_watcher.py",
+    "README.md",
     "AI_Employee_Vault/Done/FILE_test_313.md",
-    "AI_Employee_Vault/Needs_Action/FILE_Iftar_Party_Food_List.md",
-    "AI_Employee_Vault/Drop_Box/Iftar_Party_Food_List.txt",
-    "AI_Employee_Vault/Needs_Action/FILE_test_313.md",
-    "AI_Employee_Vault/Drop_Box/test_313.txt",
-    "__pycache__/logger.cpython-313.pyc",
-    "__pycache__/dashboard_updater.cpython-313.pyc",
-    "__pycache__/base_watcher.cpython-313.pyc",
-    "__pycache__/filesystem_watcher.cpython-313.pyc",
-    "tests/__pycache__/test_filesystem_watcher.cpython-313-pytest-9.0.2.pyc",
-    "tests/__pycache__/__init__.cpython-313.pyc",
     "AI_Employee_Vault/Done/FILE_Types_of_Rain_and_Planetary_Life.md",
+    "AI_Employee_Vault/Done",
     "AI_Employee_Vault/Dashboard.md",
     "AI_Employee_Vault/Company_Handbook.md",
-    "README.md",
-    "__pycache__/filesystem_watcher.cpython-312.pyc",
-    "tests/__pycache__/test_filesystem_watcher.cpython-312-pytest-9.0.2.pyc"
+    "AI_Employee_Vault/Needs_Action/FILE_Iftar_Party_Food_List.md",
+    "AI_Employee_Vault/Needs_Action/FILE_test_313.md"
   ]
 }
