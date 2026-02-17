@@ -1,0 +1,14 @@
+[project]
+name = "bronze-fte"
+version = "0.1.0"
+description = "Bronze tier Personal AI Employee — filesystem watcher + agent skills"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "watchdog>=6.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
