@@ -1,0 +1,211 @@
+{
+  "main": {
+    "id": "aec961c832c159d8",
+    "type": "split",
+    "children": [
+      {
+        "id": "e2ff5ec0a6b5ed0d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bcb663d934fa2139",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "595a5ab7c470fa29",
+    "type": "split",
+    "children": [
+      {
+        "id": "040919e5e95491a5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bb0bc09c6dbcf852",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "0d284905dace7996",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "e4e5082062510a51",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "4cb49b87d769f26d",
+    "type": "split",
+    "children": [
+      {
+        "id": "7a61cbd2ccd35d51",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b5033e62966c5448",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "7c93839155b86daf",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "e7b39db09a60b769",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "3402582a739e1875",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "61f5be3e164d778c",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "bcb663d934fa2139",
+  "lastOpenFiles": [
+    "README.md",
+    "level-bronze/__pycache__/run_watchers.cpython-313.pyc",
+    "history/prompts/001-bronze-tier/0009-system-health-status-check.misc.prompt.md",
+    "history/prompts/001-bronze-tier/0008-process-iftar-food-list.misc.prompt.md",
+    "level-bronze/AI_Employee_Vault/Done/FILE_Iftar_Party_Food_List.md",
+    "history/prompts/001-bronze-tier/0007-triage-iftar-food-list.misc.prompt.md",
+    "history/prompts/001-bronze-tier/0006-process-test-313-item.misc.prompt.md",
+    "level-bronze/AI_Employee_Vault/Done/FILE_test_313.md",
+    "history/prompts/001-bronze-tier/0005-triage-needs-action-items.misc.prompt.md",
+    "level-bronze/AI_Employee_Vault/Needs_Action/FILE_Iftar_Party_Food_List.md",
+    "level-bronze/AI_Employee_Vault/Drop_Box/Iftar_Party_Food_List.txt",
+    "level-bronze/AI_Employee_Vault/Needs_Action/FILE_test_313.md",
+    "level-bronze/AI_Employee_Vault/Drop_Box/test_313.txt",
+    "level-bronze/__pycache__/logger.cpython-313.pyc",
+    "level-bronze/__pycache__/dashboard_updater.cpython-313.pyc",
+    "level-bronze/__pycache__/base_watcher.cpython-313.pyc",
+    "level-bronze/__pycache__/filesystem_watcher.cpython-313.pyc",
+    "level-bronze/tests/__pycache__/test_filesystem_watcher.cpython-313-pytest-9.0.2.pyc",
+    "level-bronze/tests/__pycache__/__init__.cpython-313.pyc",
+    "CLAUDE.md",
+    "Untitled.canvas",
+    "level-bronze/AI_Employee_Vault/Done/FILE_Types_of_Rain_and_Planetary_Life.md",
+    "level-bronze/AI_Employee_Vault/Needs_Action/FILE_Types_of_Rain_and_Planetary_Life.md",
+    "level-bronze/AI_Employee_Vault/Drop_Box/Types_of_Rain_and_Planetary_Life.pdf",
+    "history/prompts/001-bronze-tier/0004-bronze-tier-implementation.green.prompt.md",
+    "level-bronze/AI_Employee_Vault/Company_Handbook.md",
+    "specs/001-bronze-tier/checklists/requirements.md",
+    "level-bronze/AI_Employee_Vault/Dashboard.md",
+    "level-bronze/README.md"
+  ]
+}

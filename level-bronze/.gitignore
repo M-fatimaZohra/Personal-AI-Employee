@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.env
+AI_Employee_Vault/Logs/*.json
