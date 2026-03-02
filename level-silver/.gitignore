@@ -1,0 +1,43 @@
+# Silver FTE — local gitignore
+
+# Secrets and credentials (NEVER push)
+.env
+.env.*
+.secrets/
+.state/
+
+# Python artifacts
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Pytest
+.pytest_cache/
+
+# Vault runtime data (private)
+AI_Employee_Vault/Logs/*.json
+AI_Employee_Vault/Done/*.md
+AI_Employee_Vault/Needs_Action/*.md
+AI_Employee_Vault/Pending_Approval/*.md
+AI_Employee_Vault/Approved/*.md
+AI_Employee_Vault/Rejected/*.md
+AI_Employee_Vault/Plans/*.md
+
+# MCP server
+mcp-email-server/node_modules/
+mcp-email-server/.env
+
+# Claude local settings (machine-specific)
+.claude/settings.local.json
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+
+node_modules/

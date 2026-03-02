@@ -1,0 +1,41 @@
+# Hackathon context (private reference, never push)
+Hackathoncontext.md
+
+# Environment
+.env
+.env.*
+
+# OS artifacts
+Thumbs.db
+.DS_Store
+
+# Obsidian workspace (user-specific, machine-specific)
+**/.obsidian/workspace.json
+
+# Claude Code local settings (machine-specific, not project config)
+.claude/settings.local.json
+level-silver/.claude/settings.local.json
+
+# Test PDF artifact
+Types_of_Rain_and_Planetary_Life.pdf
+Untitled.canvas
+
+# Silver tier secrets (NEVER PUSH)
+level-silver/.env
+level-silver/.env.*
+level-silver/.secrets/
+level-silver/.state/
+
+# Silver tier vault — ignore all contents except the two config files
+# Subdirectories (Done/, Logs/, Needs_Action/, Pending_Approval/, Approved/, Rejected/, Plans/) are fully ignored
+level-silver/AI_Employee_Vault/*
+!level-silver/AI_Employee_Vault/Company_Handbook.md
+!level-silver/AI_Employee_Vault/Dashboard.md
+
+# Silver tier MCP server
+level-silver/mcp-email-server/node_modules/
+level-silver/mcp-email-server/.env
+
+# PHR live-session logs (contain real contact names, email addresses, WhatsApp IDs from testing)
+# Architecture/spec/plan/tasks PHRs are safe but kept out entirely for public repo safety
+history/prompts/002-silver-tier/
