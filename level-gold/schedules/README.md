@@ -15,12 +15,12 @@ This directory contains batch scripts for scheduled tasks. These complement the 
 ## Registration Commands
 
 > **Run all commands below in an elevated Command Prompt (Run as Administrator).**
-> From the repo root — adjust `<ABSOLUTE_PATH_TO_LEVEL_SILVER>` to your actual path.
+> From the repo root — adjust `<ABSOLUTE_PATH_TO_YOUR_REPO>` to your actual path.
 
 ### Set your base path (do this once)
 
 ```cmd
-set SILVER=<ABSOLUTE_PATH_TO_YOUR_REPO>\fte-Autonomus-employ\level-silver
+set GOLD=<ABSOLUTE_PATH_TO_YOUR_REPO>\fte-Autonomus-employ\level-gold
 ```
 
 ---
@@ -29,8 +29,8 @@ set SILVER=<ABSOLUTE_PATH_TO_YOUR_REPO>\fte-Autonomus-employ\level-silver
 
 ```cmd
 schtasks /create ^
-  /tn "SilverFTE-GmailPoller" ^
-  /tr "%SILVER%\schedules\gmail_poll.bat" ^
+  /tn "GoldFTE-GmailPoller" ^
+  /tr "%GOLD%\schedules\gmail_poll.bat" ^
   /sc minute ^
   /mo 2 ^
   /ru "%USERNAME%" ^
@@ -39,12 +39,12 @@ schtasks /create ^
 
 **Verify it was created:**
 ```cmd
-schtasks /query /tn "SilverFTE-GmailPoller" /v /fo LIST
+schtasks /query /tn "GoldFTE-GmailPoller" /v /fo LIST
 ```
 
 **Run it manually to test:**
 ```cmd
-schtasks /run /tn "SilverFTE-GmailPoller"
+schtasks /run /tn "GoldFTE-GmailPoller"
 ```
 
 ---
@@ -53,8 +53,8 @@ schtasks /run /tn "SilverFTE-GmailPoller"
 
 ```cmd
 schtasks /create ^
-  /tn "SilverFTE-MorningBriefing" ^
-  /tr "%SILVER%\schedules\morning_briefing.bat" ^
+  /tn "GoldFTE-MorningBriefing" ^
+  /tr "%GOLD%\schedules\morning_briefing.bat" ^
   /sc daily ^
   /st 08:00 ^
   /ru "%USERNAME%" ^
@@ -63,12 +63,12 @@ schtasks /create ^
 
 **Verify:**
 ```cmd
-schtasks /query /tn "SilverFTE-MorningBriefing" /v /fo LIST
+schtasks /query /tn "GoldFTE-MorningBriefing" /v /fo LIST
 ```
 
 **Run manually:**
 ```cmd
-schtasks /run /tn "SilverFTE-MorningBriefing"
+schtasks /run /tn "GoldFTE-MorningBriefing"
 ```
 
 ---
@@ -77,8 +77,8 @@ schtasks /run /tn "SilverFTE-MorningBriefing"
 
 ```cmd
 schtasks /create ^
-  /tn "SilverFTE-WeeklyReview" ^
-  /tr "%SILVER%\schedules\weekly_review.bat" ^
+  /tn "GoldFTE-WeeklyReview" ^
+  /tr "%GOLD%\schedules\weekly_review.bat" ^
   /sc weekly ^
   /d SUN ^
   /st 09:00 ^
@@ -88,20 +88,20 @@ schtasks /create ^
 
 **Verify:**
 ```cmd
-schtasks /query /tn "SilverFTE-WeeklyReview" /v /fo LIST
+schtasks /query /tn "GoldFTE-WeeklyReview" /v /fo LIST
 ```
 
 **Run manually:**
 ```cmd
-schtasks /run /tn "SilverFTE-WeeklyReview"
+schtasks /run /tn "GoldFTE-WeeklyReview"
 ```
 
 ---
 
-## View All Silver FTE Tasks at Once
+## View All Gold FTE Tasks at Once
 
 ```cmd
-schtasks /query /fo TABLE | findstr "SilverFTE"
+schtasks /query /fo TABLE | findstr "GoldFTE"
 ```
 
 ---
@@ -109,9 +109,9 @@ schtasks /query /fo TABLE | findstr "SilverFTE"
 ## Remove Tasks (if needed)
 
 ```cmd
-schtasks /delete /tn "SilverFTE-GmailPoller"   /f
-schtasks /delete /tn "SilverFTE-MorningBriefing" /f
-schtasks /delete /tn "SilverFTE-WeeklyReview"   /f
+schtasks /delete /tn "GoldFTE-GmailPoller"   /f
+schtasks /delete /tn "GoldFTE-MorningBriefing" /f
+schtasks /delete /tn "GoldFTE-WeeklyReview"   /f
 ```
 
 ---

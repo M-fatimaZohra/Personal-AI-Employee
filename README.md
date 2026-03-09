@@ -4,14 +4,14 @@ A local-first autonomous AI agent that works as a full-time digital employee, po
 
 ## What This Is
 
-The Digital FTE is an AI system that monitors Gmail, WhatsApp, LinkedIn, and your local filesystem — triages incoming items, applies configurable business rules, and processes them through a structured pipeline — all without sending your data to external cloud storage.
+The Digital FTE is an autonomous AI system that acts as a full-time employee — monitoring Gmail, WhatsApp, LinkedIn, Facebook, Instagram, Twitter, and your local filesystem; managing business finances via Odoo; and running weekly CEO briefings. Everything runs locally on your machine. No cloud storage, no external data leakage.
 
 It follows the **Perception → Reasoning → Action** architecture:
-- **Perception**: Watchers detect events (files, emails, WhatsApp messages, LinkedIn notifications)
-- **Reasoning**: Claude Code reads the vault, applies handbook rules, and decides what to do
-- **Action**: Agent Skills execute decisions — auto-reply, escalate for approval, draft, archive
+- **Perception**: 7 watchers detect events (files, emails, WhatsApp messages, LinkedIn/Facebook/Instagram/Twitter notifications, Odoo financial health)
+- **Reasoning**: Claude Code reads the vault, applies Company Handbook rules, and decides what to do
+- **Action**: 15 Agent Skills execute decisions — auto-reply, create invoices, schedule social posts, escalate for HITL approval
 
-All state is stored as markdown files in an Obsidian vault, making the system fully transparent and auditable.
+All state is stored as markdown files with YAML frontmatter in an Obsidian vault, making every decision transparent and auditable. Sensitive actions (financial, legal, new contacts) always require explicit human approval via file-move in Obsidian before execution.
 
 ## Tier Structure
 
@@ -21,7 +21,7 @@ The project is built incrementally across tiers. Each tier is a standalone subdi
 |------|-----------|-------|--------|
 | **Bronze** | `level-bronze/` | Foundation — filesystem watcher, 3 agent skills, dashboard | ✅ Complete |
 | **Silver** | `level-silver/` | Expansion — Gmail + WhatsApp + LinkedIn watchers, MCP email, HITL approvals, PM2 | ✅ Complete |
-| **Gold** | `level-gold/` _(planned)_ | Autonomy — multi-step reasoning, proactive actions, self-scheduling | Planned |
+| **Gold** | `level-gold/` | Autonomy — Odoo accounting, social media (FB/IG/TW), multi-domain workflows, CEO briefing, circuit breakers | ✅ Complete |
 | **Platinum** | `level-platinum/` _(planned)_ | Intelligence — learning from history, self-improvement | Planned |
 
 ## Project Structure
@@ -41,6 +41,18 @@ fte-Autonomus-employ/
 │   ├── schedules/              # Windows Task Scheduler batch scripts
 │   ├── *.py / *.js             # Python + Node.js watchers + orchestrator
 │   └── tests/
+│
+├── level-gold/                 # Gold tier — Odoo, social media, multi-domain, CEO briefing
+│   ├── AI_Employee_Vault/      # Obsidian vault (7 watchers feed here)
+│   ├── .claude/skills/         # 15 Agent Skills
+│   ├── mcp-email-server/       # Node.js MCP server — Gmail send/draft/search
+│   ├── mcp-odoo-server/        # Node.js MCP server — Odoo JSON-RPC (invoice/partner/finance)
+│   ├── schedules/              # 5 Windows Task Scheduler batch scripts
+│   ├── media/                  # Images for Instagram posts
+│   ├── docker-compose.yml      # Odoo 19 Community + PostgreSQL 15
+│   ├── ecosystem.config.cjs    # PM2 config (2 processes)
+│   ├── *.py / *.js             # 20 Python modules + Node.js WhatsApp watcher
+│   └── tests/                  # 9 test files (pytest + Node.js)
 │
 ├── specs/                      # Spec-Driven Development artifacts
 │   ├── 001-bronze-tier/        # Bronze spec, plan, tasks
@@ -67,7 +79,7 @@ uv sync
 uv run python run_watchers.py
 ```
 
-Drop any file into `AI_Employee_Vault/Drop_Box/` and open Claude Code to use the skills:
+Drop any file into `AI_Employee_Vault/Drop_Box/` and use the skills:
 `/fte-triage` · `/fte-process` · `/fte-status`
 
 See [level-bronze/README.md](level-bronze/README.md) for full details.
@@ -83,17 +95,47 @@ pm2 start ecosystem.config.js
 
 Gmail, WhatsApp, and LinkedIn events are automatically detected, triaged, and routed through the HITL approval workflow. See [level-silver/QUICKSTART.md](level-silver/QUICKSTART.md) for the full setup guide.
 
+### Gold Tier
+
+```bash
+cd level-gold
+uv sync
+uv run playwright install chromium
+cp .env.example .env                           # Fill in all credentials
+docker compose up -d                           # Start Odoo
+cd mcp-email-server && npm install && cd ..
+cd mcp-odoo-server && npm install && cd ..
+npm install                                    # WhatsApp deps
+pm2 start ecosystem.config.cjs                # Start orchestrator + WhatsApp watcher
+```
+
+First-time authentication (one-off):
+
+```bash
+uv run python gmail_watcher.py --auth-only                     # Gmail OAuth
+node whatsapp_watcher.js --setup                               # WhatsApp QR scan
+LI_HEADLESS=false uv run python facebook_watcher.py --setup    # Facebook login
+LI_HEADLESS=false uv run python instagram_watcher.py --setup   # Instagram login
+LI_HEADLESS=false uv run python twitter_watcher.py --setup     # Twitter login
+LI_HEADLESS=false uv run python linkedin_watcher.py --setup    # LinkedIn login
+```
+
+See [level-gold/QUICKSTART.md](level-gold/QUICKSTART.md) for the full 11-step guide, [docs/odoo-setup.md](level-gold/docs/odoo-setup.md) for Odoo, and [docs/social-media-setup.md](level-gold/docs/social-media-setup.md) for social platform sessions.
+
 ## Tech Stack
 
-| Layer | Bronze | Silver |
-|-------|--------|--------|
-| Language | Python 3.13+ via `uv` | Python 3.13+ · Node.js v18+ |
-| Watchers | watchdog (filesystem) | watchdog · Gmail API · Baileys (WhatsApp) · Playwright (LinkedIn) |
-| Orchestration | Manual (Claude Code on-demand) | PM2 + orchestrator.py (autonomous) |
-| AI Actions | Claude Code Agent Skills | Claude Code Agent Skills + MCP email server |
-| State | Obsidian vault (markdown + YAML) | Obsidian vault (markdown + YAML) |
-| Scheduling | — | Windows Task Scheduler |
-| Logging | JSON Lines | JSON Lines |
+| Layer | Bronze | Silver | Gold |
+|-------|--------|--------|------|
+| Language | Python 3.13+ via `uv` | Python 3.13+ · Node.js v20+ | Python 3.13+ · Node.js v20+ |
+| Watchers | watchdog (filesystem) | watchdog · Gmail API · Baileys · Playwright (LI) | + Playwright (FB/IG/TW) |
+| Orchestration | Manual | PM2 + orchestrator.py | PM2 + orchestrator.py (enhanced) |
+| AI Actions | Claude Code Skills | Skills + MCP email server | Skills + MCP email + MCP Odoo |
+| Accounting | — | — | Odoo 19 Community (Docker) |
+| Social Media | — | LinkedIn only | LinkedIn + Facebook + Instagram + Twitter |
+| State | Obsidian vault | Obsidian vault | Obsidian vault |
+| Scheduling | — | Windows Task Scheduler (3) | Windows Task Scheduler (5) |
+| Error Recovery | — | Exponential backoff | CircuitBreaker + backoff |
+| Logging | JSON Lines | JSON Lines | JSON Lines + 90-day retention |
 
 ## Key Principles
 

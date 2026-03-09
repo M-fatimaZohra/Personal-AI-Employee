@@ -39,3 +39,7 @@ level-silver/mcp-email-server/.env
 # PHR live-session logs (contain real contact names, email addresses, WhatsApp IDs from testing)
 # Architecture/spec/plan/tasks PHRs are safe but kept out entirely for public repo safety
 history/prompts/002-silver-tier/
+history/prompts/003-gold-tier/
+
+# Reports directory (may contain sensitive test data, local paths, real emails)
+Reports/
