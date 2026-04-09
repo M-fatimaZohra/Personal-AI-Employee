@@ -22,7 +22,7 @@ The project is built incrementally across tiers. Each tier is a standalone subdi
 | **Bronze** | `level-bronze/` | Foundation — filesystem watcher, 3 agent skills, dashboard | ✅ Complete |
 | **Silver** | `level-silver/` | Expansion — Gmail + WhatsApp + LinkedIn watchers, MCP email, HITL approvals, PM2 | ✅ Complete |
 | **Gold** | `level-gold/` | Autonomy — Odoo accounting, social media (FB/IG/TW), multi-domain workflows, CEO briefing, circuit breakers | ✅ Complete |
-| **Platinum** | `level-platinum/` _(planned)_ | Intelligence — learning from history, self-improvement | Planned |
+| **Platinum** | `level-platinum/` | Distribution — 24/7 cloud agent on Azure VM, vault sync over SSH, draft-only cloud mode, Odoo on cloud | ✅ Complete |
 
 ## Project Structure
 
@@ -53,6 +53,16 @@ fte-Autonomus-employ/
 │   ├── ecosystem.config.cjs    # PM2 config (2 processes)
 │   ├── *.py / *.js             # 20 Python modules + Node.js WhatsApp watcher
 │   └── tests/                  # 9 test files (pytest + Node.js)
+│
+├── level-platinum/             # Platinum tier — distributed cloud + local AI employee
+│   ├── cloud/                  # Runs on Azure VM (24/7): Gmail watcher, orchestrator (draft-only)
+│   ├── local/                  # Runs on laptop: all 7 watchers, approval execution
+│   ├── shared/                 # Shared code + 16 Agent Skills (used by both agents)
+│   ├── AI_Employee_Vault/      # Single shared vault (synced via Git over SSH every 2 min)
+│   ├── scripts/                # VM setup, vault sync, secret transfer automation
+│   ├── schedules/              # Windows Task Scheduler batch scripts
+│   ├── docs/                   # Architecture, Odoo setup, lessons learned
+│   └── tests/                  # Pytest + Node.js test suite
 │
 ├── specs/                      # Spec-Driven Development artifacts
 │   ├── 001-bronze-tier/        # Bronze spec, plan, tasks
@@ -122,28 +132,54 @@ LI_HEADLESS=false uv run python linkedin_watcher.py --setup    # LinkedIn login
 
 See [level-gold/QUICKSTART.md](level-gold/QUICKSTART.md) for the full 11-step guide, [docs/odoo-setup.md](level-gold/docs/odoo-setup.md) for Odoo, and [docs/social-media-setup.md](level-gold/docs/social-media-setup.md) for social platform sessions.
 
+### Platinum Tier
+
+The Platinum tier splits the system into two agents that communicate exclusively through a Git-synced Obsidian vault over SSH.
+
+**Cloud Agent** (Azure VM, 24/7):
+```bash
+# On the Azure VM
+pm2 start ecosystem.config.cjs     # Start cloud orchestrator (draft-only mode)
+```
+
+**Local Agent** (Windows laptop):
+```bash
+cd level-platinum/local
+uv sync
+cp .env.example .env               # Fill in credentials
+pm2 start ecosystem.config.cjs    # Start local orchestrator + all watchers
+```
+
+**Vault Sync** runs automatically every 2 minutes via cron (VM) and Windows Task Scheduler (local). The Cloud Agent writes `Needs_Action/email/EMAIL_*.md` files which sync to the local agent, which claims them, drafts replies using Claude skills, and sends via MCP after human approval.
+
+See [level-platinum/README.md](level-platinum/README.md) for the full deployment guide, security model, and architecture.
+
 ## Tech Stack
 
-| Layer | Bronze | Silver | Gold |
-|-------|--------|--------|------|
-| Language | Python 3.13+ via `uv` | Python 3.13+ · Node.js v20+ | Python 3.13+ · Node.js v20+ |
-| Watchers | watchdog (filesystem) | watchdog · Gmail API · Baileys · Playwright (LI) | + Playwright (FB/IG/TW) |
-| Orchestration | Manual | PM2 + orchestrator.py | PM2 + orchestrator.py (enhanced) |
-| AI Actions | Claude Code Skills | Skills + MCP email server | Skills + MCP email + MCP Odoo |
-| Accounting | — | — | Odoo 19 Community (Docker) |
-| Social Media | — | LinkedIn only | LinkedIn + Facebook + Instagram + Twitter |
-| State | Obsidian vault | Obsidian vault | Obsidian vault |
-| Scheduling | — | Windows Task Scheduler (3) | Windows Task Scheduler (5) |
-| Error Recovery | — | Exponential backoff | CircuitBreaker + backoff |
-| Logging | JSON Lines | JSON Lines | JSON Lines + 90-day retention |
+| Layer | Bronze | Silver | Gold | Platinum |
+|-------|--------|--------|------|----------|
+| Language | Python 3.13+ via `uv` | Python 3.13+ · Node.js v20+ | Python 3.13+ · Node.js v20+ | Python 3.13+ · Node.js v20+ |
+| Watchers | watchdog (filesystem) | watchdog · Gmail API · Baileys · Playwright (LI) | + Playwright (FB/IG/TW) | Cloud: Gmail only · Local: all 7 |
+| Orchestration | Manual | PM2 + orchestrator.py | PM2 + orchestrator.py (enhanced) | PM2 on VM (cloud) + PM2 on laptop (local) |
+| AI Actions | Claude Code Skills | Skills + MCP email server | Skills + MCP email + MCP Odoo | 16 skills (shared) + MCP email + MCP Odoo |
+| Accounting | — | — | Odoo 19 Community (Docker, local) | Odoo 19 Community (Docker, Azure VM 24/7) |
+| Social Media | — | LinkedIn only | LinkedIn + Facebook + Instagram + Twitter | Local only (cloud IPs = bot detection) |
+| State | Obsidian vault | Obsidian vault | Obsidian vault | Shared vault — Git over SSH every 2 min |
+| Scheduling | — | Windows Task Scheduler (3) | Windows Task Scheduler (5) | Cron (VM) + Task Scheduler (local) |
+| Error Recovery | — | Exponential backoff | CircuitBreaker + backoff | CircuitBreaker + backoff + graceful degradation |
+| Logging | JSON Lines | JSON Lines | JSON Lines + 90-day retention | JSON Lines (both agents, separate log files) |
+| Deployment | Local only | Local only | Local only | Azure VM D2s_v6 (2 vCPU, 8GB, East Asia) |
+| Security | — | HITL approvals | HITL + secrets isolation | Draft-only cloud mode · secrets never synced · atomic claim-by-move |
 
 ## Key Principles
 
-1. **Local-First**: All data stays on your machine. No cloud storage.
-2. **File-Based Communication**: Agents communicate through markdown files with YAML frontmatter.
-3. **Human-in-the-Loop**: The human always has final say. HITL approval gates every sensitive action.
-4. **Observability**: Every action is logged. `Dashboard.md` shows live system state.
-5. **Incremental Progression**: Each tier builds on the last. Bronze works standalone; Silver extends it.
+1. **Local-First**: All sensitive data stays on your machine. Secrets, sessions, and credentials never leave the local environment.
+2. **File-Based Communication**: Agents communicate through markdown files with YAML frontmatter in an Obsidian vault — the vault is the state bus.
+3. **Human-in-the-Loop**: The human always has final say. HITL approval gates every sensitive action (financial, legal, external communications).
+4. **Observability**: Every action is logged. `Dashboard.md` shows live system state across both agents.
+5. **Draft-Only Cloud**: The Cloud Agent can perceive and reason, but **never executes irreversible actions** (no email sends, no social posts, no invoice commits). All execution is local-only.
+6. **Atomic Claim-by-Move**: `os.rename()` is POSIX-atomic — prevents double-processing when both cloud and local agents scan the same `Needs_Action/` folder simultaneously.
+7. **Incremental Progression**: Each tier builds on the last. Bronze works standalone; Platinum is the full distributed production system.
 
 ## License
 
