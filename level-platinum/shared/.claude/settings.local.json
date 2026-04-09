@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__email__send_email",
+      "mcp__email__draft_email",
+      "mcp__email__search_emails",
+      "mcp__odoo__create_partner",
+      "mcp__odoo__create_invoice",
+      "mcp__odoo__get_financial_summary",
+      "mcp__odoo__list_transactions"
+    ]
+  }
+}

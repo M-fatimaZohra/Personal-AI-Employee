@@ -1,0 +1,72 @@
+# Gold FTE — local gitignore
+
+# Secrets and credentials (NEVER push)
+.env
+.env.*
+.secrets/
+.state/
+
+# Python artifacts
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Pytest
+.pytest_cache/
+
+# Vault runtime data (private) - recursive patterns for domain subdirectories
+AI_Employee_Vault/Logs/*.json
+AI_Employee_Vault/Logs/*.log
+AI_Employee_Vault/Done/**/*.md
+AI_Employee_Vault/Needs_Action/**/*.md
+AI_Employee_Vault/Pending_Approval/**/*.md
+AI_Employee_Vault/Approved/**/*.md
+AI_Employee_Vault/Rejected/**/*.md
+AI_Employee_Vault/Plans/**/*.md
+AI_Employee_Vault/In_Progress/**/*.md
+AI_Employee_Vault/Updates/**/*.md
+AI_Employee_Vault/Inbox/
+AI_Employee_Vault/Drop_Box/
+
+# Vault business-sensitive config (private)
+AI_Employee_Vault/Business_Goals.md
+AI_Employee_Vault/FAQ_Context.md
+
+# MCP servers
+mcp-email-server/node_modules/
+mcp-email-server/.env
+mcp-odoo-server/node_modules/
+mcp-odoo-server/.env
+mcp-social-server/node_modules/
+mcp-social-server/.env
+
+# Claude local settings (machine-specific)
+.claude/settings.local.json
+
+# Claude junctions (recreated on each machine from shared/)
+.claude/skills
+.claude/hooks
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+
+node_modules/
+
+# Test checklist (contains live test data and timestamps)
+GOLD_TIER_TEST_CHECKLIST.md
+
+# Runtime logs (vault sync log — generated at runtime, not code)
+logs/
+
+# Azure secrets (NEVER commit SSH keys or VM IP)
+.azure-secrets/
+
+# VS Code workspace settings (machine-specific)
+.vscode/

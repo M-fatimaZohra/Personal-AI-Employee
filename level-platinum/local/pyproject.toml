@@ -1,0 +1,20 @@
+[project]
+name = "gold-fte"
+version = "0.1.0"
+description = "Gold tier Autonomous Business Employee — Odoo accounting, social media (FB/IG/Twitter), CEO briefing, multi-domain coordination"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "google-api-python-client>=2.190.0",
+    "google-auth-httplib2>=0.3.0",
+    "google-auth-oauthlib>=1.2.4",
+    "pdfplumber>=0.11.9",
+    "playwright>=1.58.0",
+    "python-dotenv>=1.2.1",
+    "watchdog>=6.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
