@@ -13,15 +13,6 @@ It follows the **Perception → Reasoning → Action** architecture:
 
 All state is stored as markdown files with YAML frontmatter in an Obsidian vault, making every decision transparent and auditable. Sensitive actions (financial, legal, new contacts) always require explicit human approval via file-move in Obsidian before execution.
 
-graph TD
-    UserInput[User Input] --> Watchers[7 Watchers]
-    Watchers --> Vault[(Obsidian Vault - State Bus)]
-    Vault --> Reasoning[Claude Code Reasoning]
-    Reasoning --> Approval{HITL Approval?}
-    Approval -- No --> Vault
-    Approval -- Yes --> Actions[15 Agent Skills]
-    Actions --> External[Email / Odoo / Social]
-
 ## Tier Structure
 
 The project is built incrementally across tiers. Each tier is a standalone subdirectory.
